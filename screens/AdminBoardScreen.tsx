@@ -13,10 +13,13 @@ export default function AdminBoardScreen({ navigation }: any) {
     }
 
     try {
-      const res = await axios.post("http://192.168.0.236:5000/api/boards", {
-        name: boardName.trim(),
-        alias: alias.trim(),
-      });
+      const res = await axios.post(
+        "https://ratingapp-be.onrender.com/api/boards",
+        {
+          name: boardName.trim(),
+          alias: alias.trim(),
+        }
+      );
 
       navigation.navigate("AdminDashboard", {
         alias: res.data.alias,
@@ -35,7 +38,7 @@ export default function AdminBoardScreen({ navigation }: any) {
     if (!existingAlias.trim()) return Alert.alert("Enter an alias");
     try {
       const res = await axios.get(
-        `http://192.168.0.236:5000/api/boards/alias/${existingAlias.trim()}`
+        `https://ratingapp-be.onrender.com/api/boards/alias/${existingAlias.trim()}`
       );
       navigation.navigate("AdminDashboard", {
         alias: existingAlias.trim(),

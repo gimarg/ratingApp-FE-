@@ -47,7 +47,7 @@ export default function PlayerVoteScreen({ route, navigation }: any) {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.236:5000/api/boards/alias/${alias}`)
+      .get(`https://ratingapp-be.onrender.com/api/boards/alias/${alias}`)
       .then((res) => {
         setBoard(res.data);
       })
@@ -64,14 +64,13 @@ export default function PlayerVoteScreen({ route, navigation }: any) {
     }
 
     try {
-      await axios.post(`http://192.168.0.236:5000/api/boards/vote`, {
+      await axios.post(`https://ratingapp-be.onrender.com/api/boards/vote`, {
         entryId,
         score,
         playerId,
       });
 
       setSubmitted((prev) => ({ ...prev, [entryId]: true }));
-      Alert.alert("Vote submitted");
     } catch {
       Alert.alert("Error submitting vote");
     }
@@ -114,7 +113,7 @@ export default function PlayerVoteScreen({ route, navigation }: any) {
 
       <View style={styles.bottomButton}>
         <Button
-          color="#9b56ff      "
+          color="#9b56ff"
           title="View My Votes"
           onPress={() => navigation.navigate("MyVotes", { alias })}
         />

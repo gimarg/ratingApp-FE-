@@ -1,18 +1,47 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 export default function PlayerJoinScreen({ navigation }: any) {
   const [alias, setAlias] = useState("");
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleJoin = async () => {
     if (!alias.trim() || !name.trim()) {
       return Alert.alert("Please enter both name and board alias.");
     }
 
-    await AsyncStorage.setItem("playerName", name.trim());
-    navigation.navigate("PlayerVote", { alias: alias.trim() });
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        "https://ratingapp-be.onrender.com/api/players/login",
+        {
+          name: name.trim(),
+        }
+      );
+
+      const { playerId } = res.data;
+
+      await AsyncStorage.setItem("playerId", playerId);
+      await AsyncStorage.setItem("playerName", name.trim());
+
+      navigation.navigate("PlayerVote", { alias: alias.trim() });
+    } catch (err) {
+      Alert.alert("Login failed", "Could not log in with that name.");
+      console.error("Login error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +62,11 @@ export default function PlayerJoinScreen({ navigation }: any) {
         style={styles.input}
       />
 
-      <Button title="Join Board" onPress={handleJoin} />
+      {loading ? (
+        <ActivityIndicator style={{ marginTop: 10 }} />
+      ) : (
+        <Button title="Join Board" onPress={handleJoin} />
+      )}
     </View>
   );
 }

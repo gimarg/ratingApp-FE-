@@ -17,7 +17,7 @@ export default function AdminResultsScreen({ route, navigation }: any) {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.236:5000/api/boards/alias/${alias}`)
+      .get(`https://ratingapp-be.onrender.com/api/boards/alias/${alias}`)
       .then((res) => setBoard(res.data))
       .catch(() => Alert.alert("Board not found"))
       .finally(() => setLoading(false));
@@ -32,7 +32,7 @@ export default function AdminResultsScreen({ route, navigation }: any) {
         onPress: async () => {
           try {
             await axios.delete(
-              `http://192.168.0.236:5000/api/boards/alias/${alias}`
+              `https://ratingapp-be.onrender.com/api/boards/alias/${alias}`
             );
             Alert.alert("Deleted");
             navigation.goBack();
