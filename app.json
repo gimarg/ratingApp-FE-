@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "rating-app-frontend",
-    "slug": "rating-app-frontend",
+    "name": "Rating App",
+    "slug": "rating-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./rating-rate-svgrepo-com.svg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -13,17 +13,27 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.marggi.ratingapp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.marggi.ratingapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "20c144b8-6d58-4179-b53c-b6e15f9d51e1"
+      }
     }
   }
 }
